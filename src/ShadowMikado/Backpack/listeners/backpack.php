@@ -44,7 +44,6 @@ class backpack implements Listener
             }
 
             $menu->setInventoryCloseListener(function (Player $player, InvMenuInventory $inventory) use ($bitem) {
-                echo $bitem->getCustomName();
                 if ($this->isBackpack($bitem)) {
                     $contents = $inventory->getContents(false);
                     $tags = [];
