@@ -94,7 +94,7 @@ class backpack implements Listener
     {
         $permissionEnabled = Main::$config->getNested("permission.enabled");
         $permissionName = Main::$config->getNested("permission.name");
-        return $permissionEnabled ? $player->hasPermission($permissionName) : true;
+        return $permissionEnabled ? $player->hasPermission("backpack." . $permissionName) : true;
     }
 
     private function isBackpack(Item $item): bool

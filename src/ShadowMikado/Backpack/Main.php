@@ -35,13 +35,11 @@ class Main extends PluginBase
     protected function onLoad(): void
     {
         self::setInstance($this);
-        $this->getLogger()->info("Loading...");
 
     }
 
     protected function onEnable(): void
     {
-        $this->getLogger()->info("Enabling...");
 
         if (!InvMenuHandler::isRegistered()) {
             InvMenuHandler::register($this);
@@ -67,11 +65,6 @@ class Main extends PluginBase
 
         $customsizedinvmenu = new CustomSizedInvMenu($this->getPluginLoader(), $this->getServer(), $this->getDescription(), $this->getDataFolder(), $this->getFile(), $this->resourceProvider);
         $customsizedinvmenu->onEnable();
-    }
-
-    protected function onDisable(): void
-    {
-        $this->getLogger()->info("Disabling...");
     }
 
 }
