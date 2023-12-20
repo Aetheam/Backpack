@@ -2,7 +2,6 @@
 
 namespace ShadowMikado\Backpack\listeners;
 
-use muqsit\customsizedinvmenu\CustomSizedInvMenu;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerItemUseEvent;
 use pocketmine\item\Item;
@@ -12,11 +11,11 @@ use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
-use muqsit\invmenu\{inventory\InvMenuInventory,
-    InvMenu,
-    transaction\InvMenuTransaction,
-    transaction\InvMenuTransactionResult};
 use pocketmine\world\sound\{NoteInstrument, NoteSound};
+use ShadowMikado\Backpack\libs\customsizedinvmenu\CustomSizedInvMenu;
+use ShadowMikado\Backpack\libs\invmenu\{transaction\InvMenuTransactionResult};
+use ShadowMikado\Backpack\libs\invmenu\inventory\InvMenuInventory;
+use ShadowMikado\Backpack\libs\invmenu\transaction\InvMenuTransaction;
 use ShadowMikado\Backpack\Main;
 
 class backpack implements Listener
@@ -44,6 +43,7 @@ class backpack implements Listener
             }
 
             $menu->setInventoryCloseListener(function (Player $player, InvMenuInventory $inventory) use ($bitem) {
+                echo $bitem->getCustomName();
                 if ($this->isBackpack($bitem)) {
                     $contents = $inventory->getContents(false);
                     $tags = [];

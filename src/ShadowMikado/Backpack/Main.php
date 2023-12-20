@@ -2,8 +2,6 @@
 
 namespace ShadowMikado\Backpack;
 
-use muqsit\customsizedinvmenu\CustomSizedInvMenu;
-use muqsit\invmenu\InvMenuHandler;
 use pocketmine\inventory\CreativeInventory;
 use pocketmine\item\ItemIdentifier;
 use pocketmine\item\StringToItemParser;
@@ -15,6 +13,8 @@ use pocketmine\resourcepacks\ZippedResourcePack;
 use pocketmine\Server;
 use pocketmine\utils\Config;
 use pocketmine\utils\SingletonTrait;
+use ShadowMikado\Backpack\libs\customsizedinvmenu\CustomSizedInvMenu;
+use ShadowMikado\Backpack\libs\invmenu\InvMenuHandler;
 use ShadowMikado\Backpack\listeners\backpack;
 use Symfony\Component\Filesystem\Path;
 
