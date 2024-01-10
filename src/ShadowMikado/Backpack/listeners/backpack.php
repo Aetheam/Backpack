@@ -43,7 +43,6 @@ class backpack implements Listener
             }
 
             $menu->setInventoryCloseListener(function (Player $player, InvMenuInventory $inventory) use ($bitem) {
-                echo $bitem->getCustomName();
                 if ($this->isBackpack($bitem)) {
                     $contents = $inventory->getContents(false);
                     $tags = [];
@@ -54,6 +53,7 @@ class backpack implements Listener
                     }
 
                     foreach ($contents as $slot => $item) {
+                        $item->getNamedTag()->setInt("slot", $slot);
                         $tags[] = $item->nbtSerialize($slot);
                         $lores[] = str_replace(["{item}", "{count}"], [$item->getName(), $item->getCount()], Main::$config->getNested("item_configuration.lore_content"));
                     }
@@ -72,19 +72,16 @@ class backpack implements Listener
                 }
             });
 
-            $contents = [];
             $tlist = $backpack->getNamedTag()->getListTag("items");
 
             if (!is_null($tlist)) {
                 foreach ($tlist as $tags) {
                     $item = Item::nbtDeserialize($tags);
-                    $contents[] = $item;
+                    $menu->getInventory()->setItem($item->getNamedTag()->getInt("slot"), $item);
                 }
-            } else {
-                $contents[] = VanillaItems::AIR();
             }
 
-            $menu->getInventory()->setContents($contents);
+
             $menu->send($player);
             $player->getInventory()->setItemInHand(VanillaItems::AIR());
         }
