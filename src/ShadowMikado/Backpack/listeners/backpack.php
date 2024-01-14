@@ -31,7 +31,7 @@ class backpack implements Listener
             $menu->setName(str_replace("{player}", $player->getName(), Main::$config->getNested("ui_configuration.display_name")));
 
             if (!Main::$config->getNested("item_configuration.can_put_backpack_in_backpack")) {
-                $menu->setListener(function (InvMenuTransaction $transaction) use ($bitem): InvMenuTransactionResult {
+                $menu->setListener(function (InvMenuTransaction $transaction): InvMenuTransactionResult {
                     if ($this->isBackpack($transaction->getItemClickedWith())) {
                         $transaction->getPlayer()->getWorld()->addSound($transaction->getPlayer()->getPosition(), new NoteSound(NoteInstrument::GUITAR(), 0));
                         $transaction->getPlayer()->sendPopup(Main::$config->getNested("messages.item_disabled"));
@@ -77,10 +77,11 @@ class backpack implements Listener
             if (!is_null($tlist)) {
                 foreach ($tlist as $tags) {
                     $item = Item::nbtDeserialize($tags);
-                    $menu->getInventory()->setItem($item->getNamedTag()->getInt("slot"), $item);
+                    $cloned = clone $item;
+                    $cloned->getNamedTag()->removeTag("slot");
+                    $menu->getInventory()->setItem($item->getNamedTag()->getInt("slot"), $cloned);
                 }
             }
-
 
             $menu->send($player);
             $player->getInventory()->setItemInHand(VanillaItems::AIR());
